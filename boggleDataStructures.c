@@ -13,7 +13,7 @@
 #include <curses.h>
 #include <ncurses.h>
 
-
+// create gameboard and randomly assign letters to board
 GameBoard * createGameBoard( int size){
     GameBoard * board = malloc(sizeof(GameBoard));
     board->size = size;
@@ -36,7 +36,7 @@ GameBoard * createGameBoard( int size){
     // the board is initialized, return.
     return board;
 }
-
+// free gameboard memory
 void freeGameBoard(GameBoard * board){
     for (int i = 0; i < board->size; i++){
         free (board->adj[i]);
@@ -44,7 +44,7 @@ void freeGameBoard(GameBoard * board){
     free (board->adj);
     free(board);
 }
-
+// unvisit tiles if word is incomplete
 void unvisitGameBoard(GameBoard * board){
     for(int i=0;i< board->size;i++){
         for(int j=0; j<board->size;j++){
@@ -65,7 +65,7 @@ Trie *createTrieNode(){
     return node;
 }
 // add word to trie
-void insert(Trie *head, char *str)
+int insert(Trie *head, char *str)
 {
     // start from root node
     Trie *curr = head;
@@ -90,9 +90,12 @@ void insert(Trie *head, char *str)
         //str++;
         i++;
     }
-    
+    if(curr->isWord == 1) {
+        return 0;
+    }
     // mark current node as leaf
     curr->isWord = 1;
+    return 1;
 }
 
 // search a trie
