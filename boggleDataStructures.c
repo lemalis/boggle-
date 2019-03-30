@@ -4,13 +4,14 @@
 //
 //
 
+#include "boggle.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-#include "constants.h"
-#include "boggle.h"
 #include <ctype.h>
 #include <string.h>
+#include <curses.h>
+#include <ncurses.h>
 
 
 GameBoard * createGameBoard( int size){
@@ -36,6 +37,14 @@ GameBoard * createGameBoard( int size){
     return board;
 }
 
+void freeGameBoard(GameBoard * board){
+    for (int i = 0; i < board->size; i++){
+        free (board->adj[i]);
+    }
+    free (board->adj);
+    free(board);
+}
+
 void unvisitGameBoard(GameBoard * board){
     for(int i=0;i< board->size;i++){
         for(int j=0; j<board->size;j++){
@@ -45,18 +54,12 @@ void unvisitGameBoard(GameBoard * board){
 }
 
 
-// trie for checking user moves
-typedef struct Trie{
-    int isWord;
-    struct Trie* characters[ALPHA_NUM];
-} Trie;
-
 // init a new trie node
 Trie *createTrieNode(){
     Trie *node = (Trie *)malloc(sizeof(Trie));
     node->isWord = 0;
     
-    for (int i = 0; i < ALPHA_NUM; i++)
+    for (int i = 0; i < 26; i++)
         node->characters[i] = NULL;
     
     return node;
@@ -106,8 +109,9 @@ int search(Trie* head, char* str)
         curr = curr->characters[*str - 'a'];
         
         // if string is invalid (reached end of path in Trie)
-        if (curr == NULL)
+        if (curr == NULL) {
             return 0;
+        }
         
         // move to next character
         str++;
@@ -118,47 +122,36 @@ int search(Trie* head, char* str)
     return curr->isWord;
 }
 
-
-
-void enqueue(Queue * head, char value) {
-    // Do stuff
-    while(head != NULL){
-        if(head->next == NULL){
-            Queue * tmp = (Queue *)malloc(sizeof(Queue));
-            tmp->value = value;
-            head->next = tmp;
-            break;
+void freeTree(Trie* head) {
+    if(head != NULL)
+    {
+        for(int i = 0; i < 26; i++)
+        {
+            if(head->characters[i] != NULL)
+            {
+                free(head->characters[i]);
+            }
         }
-        head = head->next;
-    }
-}
-
-char dequeue(Queue * head) {
-    // Do stuff
-    
-    if(head == NULL){
-        return -1;
-    }
-    
-    if(head->next == NULL){
-        char res = head->value;
         free(head);
-        return res;
-    } else  {
-        Queue * tmp = head;
-        head = head->next;
-        char res = tmp->value;
-        free(tmp);
-        return res;
     }
 }
 
-int isQueueEmpty(Queue * head){
-    if(head == NULL){
-        return 1;
+void printTree(Trie *subtree, char word[100], int level) {
+    if(subtree->isWord == 1) {
+        word[level] = '\0';
+        //print words in tree
+        printw("%s\t", word);
+        refresh();
     }
-    
-    return 0;
+
+    for(int i = 0; i < 26; i++) {
+        if(subtree->characters[i] != NULL) {
+            //traverse levels of trie
+            word[level] = 97 + i;
+            //recursively call printTree
+            printTree(subtree->characters[i], word, level+1);
+        }
+    }
+
+
 }
-
-
