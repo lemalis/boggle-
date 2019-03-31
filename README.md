@@ -15,8 +15,9 @@ youtube link
 
 Downloading and Compiling:
 ```bash
-the repository
+https://github.com/lemalis/boggle-
 ```
+Clone using link, make using "make", and execute using "./boggle"
 
 General Notes About Gamplay:
 
