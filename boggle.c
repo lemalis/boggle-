@@ -333,7 +333,7 @@ int main(int argc, const char * argv[]) {
                     } else {
                         clear();
                         displayBoard(board->size, board);
-                        printw("Not a word: '%s'. try again\n", userInput);
+                        printw("Not a word: '%s'. Try again\n", userInput);
                         refresh();
             
                     }
