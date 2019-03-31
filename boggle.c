@@ -302,7 +302,7 @@ int main(int argc, const char * argv[]) {
                     printw("Input a word:\n");
                     refresh();
                     //play for 3 minutes 
-                    if(time(NULL) - seconds <= 30) {
+                    if(time(NULL) - seconds <= 180) {
                         scanw(" %s", userInput);
                     } else {
                         printw("Time's up!\n");
