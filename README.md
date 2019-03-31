@@ -47,7 +47,7 @@ Any board size greater than 5 will take significant time to load. Words can be c
 Due to repository difficulties in the midst of this project, a new repository had to be made. To see old repository and view more code history, please see the below link. **
 
 ```bash
-old repo 
+https://github.com/lemalis/CS201_Portfolio-
 
 ```
 
