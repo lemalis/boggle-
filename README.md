@@ -28,7 +28,7 @@ Board Size:
 The board size is taken from user input, but must be at least 3 x 3 to so that the user can find a word. It is encouraged to play Boggle in full screen mode to avoid scrolling. An error is returned if user input is not a valid number input. While the board size is arbitrary, larger inputs (user input greater than 50) will create a difficult to read display. 
 
 Scoring the Game:
-A word must be at 3 characters or greater to be scored if played. Duplicate words will only be scored once, and the highest score for each round played while the player continues game play will be displayed at the end of each round. Duplicate words will onnly be scored once. 
+A word must be at 3 characters or greater to be scored if played. Duplicate words will only be scored once, and the highest score for each round played while the player continues game play will be displayed at the end of each round. Duplicate words will only be scored once. 
 < 3 letters: No points granted 
 
 3 Letters: 1 point granted <br/>
