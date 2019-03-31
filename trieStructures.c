@@ -7,7 +7,7 @@
 #include <ncurses.h>
 
 
-
+// Trie created based on : https://www.techiedelight.com/trie-implementation-insert-search-delete/ 
 // init a new trie node
 Trie *createTrieNode(){
     Trie *node = (Trie *)malloc(sizeof(Trie));
@@ -78,7 +78,7 @@ int search(Trie* head, char* str)
     // end of the string, return 1
     return curr->isWord;
 }
-
+// frees trie memory
 void freeTree(Trie* head) {
     if(head != NULL)
     {
@@ -92,7 +92,7 @@ void freeTree(Trie* head) {
         free(head);
     }
 }
-
+//prints trie
 void printTree(Trie *subtree, char word[100], int level) {
     if(subtree->isWord == 1) {
         word[level] = '\0';

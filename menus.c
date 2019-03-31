@@ -3,6 +3,7 @@
 #include <ncurses.h>
 
 int mainMenu() {
+	//prints menu
 	int menuOption;
 	clear();
 	printw("Welcome to Boggle!\n");
@@ -31,6 +32,7 @@ int mainMenu() {
 }
 
 int endMenu() {
+	//prints end menu
 	int menuOption;
 	clear();
 	printw("Thank you for playing Boggle!\n");
