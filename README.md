@@ -2,7 +2,7 @@
 
 Description-
 
-This is a C implementation of the classic Boggle coded in C. A dictionary is read in as a file.
+This is a C implementation of the classic Boggle coded in C. A dictionary is read in as a file. 
 
 
 Link to Video Tutorial:
