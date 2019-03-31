@@ -10,7 +10,7 @@ int mainMenu() {
 	printw("Would you like to:\n");
 	printw("\tBegin a new game (1)\n");
 	printw("\tExit Boggle (2)\n");
-	printw("Enter the your choice here: ");
+	printw("Enter your choice here: ");
 	refresh();
 	if(scanw("%d", &menuOption)) {
 		if(menuOption == 1 || menuOption == 2) {
@@ -40,7 +40,7 @@ int endMenu() {
 	printw("\tPlay another round (1)\n");
 	printw("\tReturn to main menu (2)\n");
 	printw("\tExit the game (3)\n");
-	printw("Enter you option here: ");
+	printw("Enter your option here: ");
 	refresh();
 	if(scanw("%d", &menuOption)) {
 		if(menuOption == 1 || menuOption == 2 || menuOption == 3) {
