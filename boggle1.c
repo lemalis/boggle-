@@ -20,21 +20,17 @@ bool isValidWordHelper();
 bool isValidWord(GameBoard * board, Trie* dictionary, char * inputWord){
     
     // ensure valid word
-    if(!search(dictionary, inputWord)){
-        printw("Word not in dictionary.\n");
-        refresh();
-        return false;
-    }
+    //if(!search(dictionary, inputWord)){
+    //    printw("Word not in dictionary.\n");
+    //    refresh();
+    //    return false;
+    //}
     // ensure the word is on the board.
     // iterate every node.
     for (int i = 0; i < board->size; i++){
         for(int j = 0; j<board->size; j++){
-            // make sure the node is the letter of the starting char
-            if((!board->adj[i][j].value) == inputWord[0]){
-                continue;
-            }
             
-            if(isValidWordHelper(board, inputWord, 0, i, j)){
+            if(board->adj[i][j].value == inputWord[0] && isValidWordHelper(board, inputWord, 0, i, j)){
                 // reset the game board regardless of is word or not.
                 unvisitGameBoard(board);
                 return true;
@@ -140,10 +136,20 @@ int getSize(){
     printw("Enter the game board size: (numeric values only) \n");
     printw("Please note that extremely large input will mess with display.\n");
     refresh();
+    //get user board size
     if(scanw("%d", &boardSize)) {
-        return boardSize;
+        if (boardSize > 2) 
+            return boardSize;
+        else {
+             printw("Invalid. Press any key to continue.");
+        refresh();
+        getch();
+        return 0 + getSize();
+        }
+
     }
     else {
+        // error if not valid input 
         printw("Invalid. Press any key to continue.");
         refresh();
         getch();
@@ -279,33 +285,34 @@ int main(int argc, const char * argv[]) {
             while(rematch) {
                 GameBoard *board = createGameBoard(s);
                 Trie *boardWords = createTrieNode();
-                displayBoard(s, board);
+                Trie *userWords = createTrieNode();
                 char userInput[512];
                 int totalScore = 0;
-    
+                
+                clear();
+                printw("Loading board...\n");
+                refresh():
+
+                // find words before game play 
+                displayBoard(s, board);
+                findWords(board, head, boardWords);
+
                 // function to keep track of game time
-                time_t now;
-                unsigned int endTime;
     
-                // Obtain current time
-                // time() returns the current time of the system as a time_t value
-                time(&now);
-    
-                endTime = now + 30;
-    
+                // Obtain current time in seconds 
+                time_t seconds;
+
+                seconds = time(NULL);
+
                 // Convert to local time format and print to stdout
                 //printw("time is : %ld\n", now);
                 refresh();
     
                 do {
-                    //play for 3 minutes 
-                    struct pollfd mypoll = { STDIN_FILENO, POLLIN|POLLPRI };
-                    time(&now);
-                    unsigned int timeLeft = endTime - now;
                     printw("Input a word:\n");
                     refresh();
-                    // poll here
-                    if(poll(&mypoll, 1, (timeLeft * 1000))){
+                    //play for 3 minutes 
+                    if(time(NULL) - seconds <= 30) {
                         scanw(" %s", userInput);
                     } else {
                         printw("Time's up!\n");
@@ -316,10 +323,10 @@ int main(int argc, const char * argv[]) {
 
                     // check against the board and dictionary.
                     //if(strlen(userInput) >= 3 && isValidWord(board, head, userInput)){
-                    if(strlen(userInput) >= 3 && search(head, userInput)) {
+                    if(strlen(userInput) >= 3 && search(head, userInput) && search(boardWords, userInput)) {
                         clear();
                         displayBoard(board->size, board);
-                        if(insert(boardWords, userInput)) {
+                        if(insert(userWords, userInput)) {
                             totalScore += getScore(userInput);
                             printw("valid word %s!\nCurrent score: %d\n",userInput, totalScore);
                             refresh();
@@ -338,7 +345,7 @@ int main(int argc, const char * argv[]) {
                     }
         
                 } while(1);
-
+                // display highest score of games played
                 if (totalScore > highScore){
                     highScore = totalScore;
                     printw("You got a high score of %d\n", highScore);
@@ -346,13 +353,12 @@ int main(int argc, const char * argv[]) {
                 }
                 char word[100];
                 int level = 0;
-                // find words before game play 
-                findWords(board, head, boardWords);
                 printTree(boardWords, word, level);
                 printw("\nPress any key to continue.");
                 refresh();
                 getch();
                 freeTree(boardWords);
+                freeTree(userWords);
                 freeGameBoard(board);
                 // display end menu options
                 int endMenuOption = endMenu();
@@ -377,9 +383,10 @@ int main(int argc, const char * argv[]) {
     freeTree(head);
     return 0;
 }
-
+// display board as i x j
 void displayBoard(int size, GameBoard* board) {
   printw("\n");
+  printw("You're playing Boggle!\n");
     for(int i=0; i< board->size; i++){
         for(int j=0;j<board->size;j++){
             printw("%c ",board->adj[i][j].value);

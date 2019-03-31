@@ -132,7 +132,7 @@ void freeTree(Trie* head) {
         {
             if(head->characters[i] != NULL)
             {
-                free(head->characters[i]);
+                freeTree(head->characters[i]);
             }
         }
         free(head);
