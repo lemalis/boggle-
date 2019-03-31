@@ -36,7 +36,7 @@ A word must be at 3 characters or greater to be scored if played. Duplicate word
 5 Letters: 2 points granted <br/>
 6 Letters: 3 points granted <br/>
 7 Letters: 4 points granted <br/>
-8 Letters: 5 points granted <br/>
+8 or more Letters: 5 points granted <br/>
 
 The highest score will hold as long as the player continues playing with the same board size in the same round. If the score from the previous round is not replaced with a higher score, a new high score will not be displayed as a new high score was not reached. 
 
