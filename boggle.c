@@ -175,7 +175,7 @@ int getScore(char* wordInput) {
     return score;
 }
 
-
+// structure for findWordsUtil modeled after: https://www.geeksforgeeks.org/boggle-find-possible-words-board-characters/
 void findWordsUtil(GameBoard *board, int **visited, Trie *dictionary, Trie *boardWords, int i, 
                    int j, char *str) 
 { 
@@ -186,20 +186,24 @@ void findWordsUtil(GameBoard *board, int **visited, Trie *dictionary, Trie *boar
     temp[0] = board->adj[i][j].value;
     temp[1] = '\0'; 
     strcat(str, temp); 
-  
+    
+    int validPrefix = search(dictionary, str);
+
     // If str is present in dictionary, then print it 
-    if (strlen(str) > 2 && search(dictionary, str)) {
+    if (strlen(str) > 2 && search(dictionary, str) == 1) {
         //add valid word to tree
         insert(boardWords, str);
         //printw("%s\t", str);
         //refresh();
     }
-  
+
+    if(validPrefix != -1) {
     // Traverse 8 adjacent cells of boggle[i][j] 
     for (int row=i-1; row<=i+1 && row<board->size; row++) 
       for (int col=j-1; col<=j+1 && col<board->size; col++) 
         if (row>=0 && col>=0 && !visited[row][col]) 
           findWordsUtil(board,visited, dictionary, boardWords, row, col, str); 
+    }
   
     // Erase current character from string and mark visited 
     // of current cell as false 
@@ -313,7 +317,7 @@ int main(int argc, const char * argv[]) {
 
                     // check against the board and dictionary.
                     //if(strlen(userInput) >= 3 && isValidWord(board, head, userInput)){
-                    if(strlen(userInput) >= 3 && search(head, userInput) && search(boardWords, userInput)) {
+                    if(strlen(userInput) >= 3 && search(head, userInput) == 1 && search(boardWords, userInput) == 1) {
                         clear();
                         displayBoard(board->size, board);
                         if(insert(userWords, userInput)) {

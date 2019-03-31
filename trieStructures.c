@@ -57,7 +57,7 @@ int search(Trie* head, char* str)
 {
     // return 0 if Trie is empty
     if (head == NULL)
-        return 0;
+        return -1;
     
     Trie* curr = head;
     while (*str)
@@ -67,7 +67,7 @@ int search(Trie* head, char* str)
         
         // if string is invalid (reached end of path in Trie)
         if (curr == NULL) {
-            return 0;
+            return -1;
         }
         
         // move to next character
