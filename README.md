@@ -9,7 +9,7 @@ This is a C implementation of the classic Boggle coded in C. A dictionary is rea
 
 Link to Video Tutorial:
 ```bash
-youtube link
+https://www.youtube.com/watch?v=AgP60CrVOaM
 ```
 
 
