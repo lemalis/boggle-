@@ -41,7 +41,7 @@ A word must be at 3 characters or greater to be scored if played. Duplicate word
 The highest score will hold as long as the player continues playing with the same board size in the same round. If the score from the previous round is not replaced with a higher score, a new high score will not be displayed as a new high score was not reached. 
 
 Playing the Game: 
-Any board size greater than 5 will take significant time to load. Words can be constructed by inputting any letter above, beneath, to the left, and to the right of a letter, including all diagonals. Words must be no less than 3 letters in length, and must be in the dictionary to receive credit. In order to ensure that at least one word has been entered, the user will have one more chance to enter a word once time has run out. 
+Any board size greater than 5 may take significant time to load the game board. Words can be constructed by inputting any letter above, beneath, to the left, and to the right of a letter, including all diagonals. Words must be no less than 3 letters in length, and must be in the dictionary to receive credit. In order to ensure that at least one word has been entered, the user will have one more chance to enter a word once time has run out. 
 
 
 **Repository notes:
